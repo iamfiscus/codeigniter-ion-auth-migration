@@ -1,0 +1,26 @@
+======================================
+Ion Auth Database Migration
+
+by Jd Fiscus
+======================================
+
+Hey everybody,
+
+If you are using the ion auth authentication library, this is a default migration and data
+that mimic's ion auth's sql file.
+
+
+INSTALLATION:
+- You must have codeigniter-migrations installed (https://github.com/philsturgeon/codeigniter-migrations)
+- You must have codeigniter-ion-auth installed (https://github.com/benedmunds/CodeIgniter-Ion-Auth)
+
+Just copy the files from this package to the corresponding folder in your 
+application folder.  For example, copy 001_Create_ion_auth.php to 
+application/migrations/001_Create_ion_auth.php. 
+
+
+
+Thanks,
+-Jd Fiscus
+ jdfiscus@gmail.com
+ @iamfiscus
