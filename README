@@ -18,7 +18,20 @@ Just copy the files from this package to the corresponding folder in your
 application folder.  For example, copy 001_Create_ion_auth.php to 
 application/migrations/001_Create_ion_auth.php. 
 
+DOCUMENTATION:
+In the migration file you can define the tables for 'groups', 'meta', and 'users' 
+to custom table names that you might specify in your ion auth config. This will change all
+the instances of the table names correctly.
+Example:
+// Tables
+private $groups	= 'access';
+private $meta = 'profile';
+private $users = 'auth';
 
+You can also change the join names to correspond with you custom tables:
+// Join names
+private $groups_join = 'access_id';
+private $users_join	= 'auth_id';
 
 Thanks,
 -Jd Fiscus
