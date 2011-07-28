@@ -6,8 +6,8 @@ by Jd Fiscus
 
 Hey everybody,
 
-If you are using the ion auth authentication library, this is a default migration and data
-that mimic's ion auth's sql file.
+If you are using the ion auth authentication library and database migrations, 
+this is a default migration and insert data that mimic's ion auth's sql file.
 
 
 INSTALLATION:
