@@ -10,16 +10,18 @@ class Migration_Create_ion_auth extends	Migration {
 	private $groups_join	= 'group_id';
 	private $users_join		= 'user_id';
 	
-	function up() {	
+	function up() 
+	{	
 		/*
 		* In order to  add default data with migrations 
 		*/
-		$this->load->library('database');
+		//$this->load->library('database');
 		
 		$this->migrations->verbose AND print "Creating ion auth default tables...";
 
 		// groups
-		if (!$this->db->table_exists($this->groups)) {	
+		if (!$this->db->table_exists($this->groups)) 
+		{	
 			// Setup Keys
 			$this->dbforge->add_key('id', TRUE);
 			
@@ -37,7 +39,8 @@ class Migration_Create_ion_auth extends	Migration {
 		}
 
 		// meta
-		if (!$this->db->table_exists($this->meta)) {	
+		if (!$this->db->table_exists($this->meta)) 
+		{	
 			// Setup Keys
 			$this->dbforge->add_key('id', TRUE);
 			
@@ -66,7 +69,8 @@ class Migration_Create_ion_auth extends	Migration {
 		
 
 		// users
-		if (!$this->db->table_exists($this->users)) {	
+		if (!$this->db->table_exists($this->users)) 
+		{	
 			// Setup Keys
 			$this->dbforge->add_key('id', TRUE);
 			
@@ -104,11 +108,44 @@ class Migration_Create_ion_auth extends	Migration {
 			);
 			$this->db->insert($this->users, $data);
 		}
+		
+		// users_groups 
+		if (!$this->db->table_exists("{$this->users}_{$this->groups}")) 
+		{
+			// Setup keys
+			$this->dbforge->add_key('id', TRUE);
+			
+			// Build Schema 
+			$this->dbforge->add_field(array(
+				'id' => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE, 'auto_increment' => TRUE),
+				"$this->users_join" => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE),
+				"$this->groups_join" => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE)
+			));
+			// create table
+			$this->dbforge->create_table("{$this->users}_{$this->groups}", TRUE);
+			
+			// define default data
+			$data = array(
+				array(
+					"$this->users_join"  => 1,
+					"$this->groups_join" => 1
+				),
+				array(
+					"$this->users_join"  => 1,
+					"$this->groups_join" => 2
+				)
+			);
+			// Insert data
+			$this->db->insert_batch("{$this->users}_{$this->groups}", $data);
+		}
+		
 	}
 
-	function down() {
+	function down() 
+	{
 		$this->dbforge->drop_table($this->groups);
 		$this->dbforge->drop_table($this->meta);
 		$this->dbforge->drop_table($this->users);
+		$this->dbforge->drop_table("{$this->users}_{$this->groups}");
 	}
 }
