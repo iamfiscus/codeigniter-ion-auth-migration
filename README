@@ -22,6 +22,11 @@ DOCUMENTATION:
 In the migration file you can define the tables for 'groups', 'meta', and 'users' 
 to custom table names that you might specify in your ion auth config. This will change all
 the instances of the table names correctly.
+
+If you have the variable $use_config set to TRUE, then the migration will pull in the
+correct variables from the Ion Auth config file.
+-OR-
+You could set them manually if you'd like instead of pulling them in from the config file.
 Example:
 // Tables
 private $groups	= 'access';
