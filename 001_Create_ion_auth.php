@@ -2,6 +2,8 @@
 
 class Migration_Create_ion_auth extends	Migration {
 	
+	// use config file variables
+	private $use_config		= TRUE;
 	// Table names
 	private $groups			= 'groups';
 	private $meta 			= 'meta';
@@ -10,12 +12,38 @@ class Migration_Create_ion_auth extends	Migration {
 	private $groups_join	= 'group_id';
 	private $users_join		= 'user_id';
 	
+	private function use_config() 
+	{
+		/*
+		* If you have the parameter set to use the config table and join names
+		* this will change them for you
+		*/
+		if ($this->use_config) {
+			// Load Ion Auth config variables
+			$this->config->load('ion_auth', TRUE);
+			$tables = $this->config->item('tables', 'ion_auth');
+			$joins = $this->config->item('tables', 'ion_auth');
+
+			// table names
+			$this->groups		= $tables['groups'];
+			$this->meta 		= $tables['meta'];
+			$this->users		= $tables['users']; 
+			// join names                          
+			$this->groups_join	= $joins['groups'];
+			$this->users_join	= $joins['users'];
+		}
+
+	}
+	
 	function up() 
 	{	
 		/*
 		* In order to  add default data with migrations 
 		*/
 		//$this->load->library('database');
+		
+		// Function to use config variables
+		$this->use_config();
 		
 		$this->migrations->verbose AND print "Creating ion auth default tables...";
 
@@ -143,6 +171,9 @@ class Migration_Create_ion_auth extends	Migration {
 
 	function down() 
 	{
+		// Function to use config variables if 
+		$this->use_config();
+		
 		$this->dbforge->drop_table($this->groups);
 		$this->dbforge->drop_table($this->meta);
 		$this->dbforge->drop_table($this->users);
