@@ -19,10 +19,9 @@ class Migration_Create_ion_auth extends	Migration {
 		* this will change them for you
 		*/
 		if ($this->use_config) {
-			// Load Ion Auth config variables
 			$this->config->load('ion_auth', TRUE);
 			$tables = $this->config->item('tables', 'ion_auth');
-			$joins = $this->config->item('tables', 'ion_auth');
+			$joins = $this->config->item('join', 'ion_auth');
 
 			// table names
 			$this->groups		= $tables['groups'];
