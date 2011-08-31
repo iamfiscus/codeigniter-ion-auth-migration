@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Create_ion_auth extends	Migration {
+class Migration_Create_ion_auth extends	CI_Migration {
 	
 	// use config file variables
 	private $use_config		= TRUE;
@@ -44,8 +44,6 @@ class Migration_Create_ion_auth extends	Migration {
 		// Function to use config variables
 		$this->use_config();
 		
-		$this->migrations->verbose AND print "Creating ion auth default tables...";
-
 		// groups
 		if (!$this->db->table_exists($this->groups)) 
 		{	
