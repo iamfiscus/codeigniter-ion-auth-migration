@@ -6,7 +6,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 	private $use_config		= TRUE;
 	// Table names
 	private $groups			= 'groups';
-	private $meta 			= 'meta';
 	private $users			= 'users';
 	// Join names
 	private $groups_join	= 'group_id';
@@ -25,7 +24,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 
 			// table names
 			$this->groups		= $tables['groups'];
-			$this->meta 		= $tables['meta'];
 			$this->users		= $tables['users']; 
 			// join names                          
 			$this->groups_join	= $joins['groups'];
@@ -62,36 +60,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			$this->db->insert($this->groups, array('id'=>null,'name'=>'admin','description'=>'Administrator'));
 			$this->db->insert($this->groups, array('id'=>null,'name'=>'members','description'=>'General User'));
 		}
-
-		// meta
-		if (!$this->db->table_exists($this->meta)) 
-		{	
-			// Setup Keys
-			$this->dbforge->add_key('id', TRUE);
-			
-			// Define custom meta data here
-			$this->dbforge->add_field(array(
-				'id' => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE, 'auto_increment' => TRUE),
-				"$this->users_join" => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => FALSE, 'null' => TRUE),
-				'first_name' => array('type' => 'VARCHAR', 'constraint' => '50', 'null' => TRUE),
-				'last_name' => array('type' => 'VARCHAR', 'constraint' => '50', 'null' => TRUE),
-				'company' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE),
-				'phone' => array('type' => 'VARCHAR', 'constraint' => '50', 'null' => TRUE)
-			));
-			// create table
-			$this->dbforge->create_table($this->meta, TRUE);
-			
-			// default data
-			$data = array(
-				"$this->users_join" => "1",
-				'first_name' => "Admin",
-				'last_name' => "istrator",
-				'company' => "ADMIN",
-				'phone' => "0"
-			);
-			$this->db->insert($this->meta, $data);
-		}
-		
 
 		// users
 		if (!$this->db->table_exists($this->users)) 
