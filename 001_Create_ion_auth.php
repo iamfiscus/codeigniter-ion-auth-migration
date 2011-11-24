@@ -140,7 +140,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 		$this->use_config();
 		
 		$this->dbforge->drop_table($this->groups);
-		$this->dbforge->drop_table($this->meta);
 		$this->dbforge->drop_table($this->users);
 		$this->dbforge->drop_table("{$this->users}_{$this->groups}");
 	}
