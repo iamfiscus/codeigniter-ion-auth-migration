@@ -80,7 +80,11 @@ class Migration_Create_ion_auth extends	CI_Migration {
 				'remember_code' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => TRUE),
 				'created_on' => array('type' => 'int', 'constraint' => '11', 'unsigned' => TRUE, 'null' => FALSE),
 				'last_login' => array('type' => 'int', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE),
-				'active' => array('type' => 'tinyint', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE)
+				'active' => array('type' => 'tinyint', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE),
+				'first_name' => array('type' => 'VARCHAR', 'constraint' => '50', 'unsigned' => TRUE, 'null' => TRUE),
+				'last_name' => array('type' => 'VARCHAR', 'constraint' => '100', 'unsigned' => TRUE, 'null' => TRUE),
+				'company' => array('type' => 'VARCHAR', 'constraint' => '100', 'unsigned' => TRUE, 'null' => TRUE),
+				'phone' => array('type' => 'VARCHAR', 'constraint' => '50', 'unsigned' => TRUE, 'null' => TRUE)
 			));
 			// create table
 			$this->dbforge->create_table($this->users, TRUE);
@@ -97,7 +101,11 @@ class Migration_Create_ion_auth extends	CI_Migration {
 				'forgotten_password_code'=>NULL,
 				'created_on'=>'1268889823',
 				'last_login'=>'1268889823',
-				'active'=>'1'
+				'active'=>'1',
+				'first_name' => 'Admin',
+				'last_name' => 'istrator',
+				'company' => 'ADMIN',
+				'phone' => '0'
 			);
 			$this->db->insert($this->users, $data);
 		}
