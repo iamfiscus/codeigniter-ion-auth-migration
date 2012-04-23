@@ -69,7 +69,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			
 			$this->dbforge->add_field(array(
 				'id' => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE, 'auto_increment' => TRUE),
-				"$this->groups_join" => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE),
 				'ip_address' => array('type' => 'CHAR', 'constraint' => '16', 'null' => FALSE),
 				'username' => array('type' => 'VARCHAR', 'constraint' => '15', 'null' => FALSE),
 				'password' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => FALSE),
@@ -81,10 +80,10 @@ class Migration_Create_ion_auth extends	CI_Migration {
 				'created_on' => array('type' => 'int', 'constraint' => '11', 'unsigned' => TRUE, 'null' => FALSE),
 				'last_login' => array('type' => 'int', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE),
 				'active' => array('type' => 'tinyint', 'constraint' => '1', 'unsigned' => TRUE, 'null' => TRUE),
-				'first_name' => array('type' => 'VARCHAR', 'constraint' => '50', 'unsigned' => TRUE, 'null' => TRUE),
-				'last_name' => array('type' => 'VARCHAR', 'constraint' => '100', 'unsigned' => TRUE, 'null' => TRUE),
-				'company' => array('type' => 'VARCHAR', 'constraint' => '100', 'unsigned' => TRUE, 'null' => TRUE),
-				'phone' => array('type' => 'VARCHAR', 'constraint' => '50', 'unsigned' => TRUE, 'null' => TRUE)
+				'first_name' => array('type' => 'VARCHAR', 'constraint' => '50', 'null' => TRUE),
+				'last_name' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE),
+				'company' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => TRUE),
+				'phone' => array('type' => 'VARCHAR', 'constraint' => '50', 'null' => TRUE)
 			));
 			// create table
 			$this->dbforge->create_table($this->users, TRUE);
