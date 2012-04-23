@@ -69,7 +69,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			
 			$this->dbforge->add_field(array(
 				'id' => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE, 'auto_increment' => TRUE),
-				"$this->groups_join" => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE),
 				'ip_address' => array('type' => 'CHAR', 'constraint' => '16', 'null' => FALSE),
 				'username' => array('type' => 'VARCHAR', 'constraint' => '15', 'null' => FALSE),
 				'password' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => FALSE),
