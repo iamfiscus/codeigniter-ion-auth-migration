@@ -91,7 +91,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			
 			// default data
 			$data = array(
-				"$this->groups_join"=>'1',
 				'ip_address'=>'127.0.0.1',
 				'username'=>'administrator',
 				'password'=>'59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4',
@@ -99,6 +98,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 				'email'=>'admin@admin.com',
 				'activation_code'=>'',
 				'forgotten_password_code'=>NULL,
+				'forgotten_password_time'=>NULL,
 				'created_on'=>'1268889823',
 				'last_login'=>'1268889823',
 				'active'=>'1',
