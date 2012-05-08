@@ -7,6 +7,8 @@ class Migration_Create_ion_auth extends	CI_Migration {
 	// Table names
 	private $groups			= 'groups';
 	private $users			= 'users';
+	private $login_attempts	= 'login_attempts';
+	
 	// Join names
 	private $groups_join	= 'group_id';
 	private $users_join		= 'user_id';
@@ -25,6 +27,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			// table names
 			$this->groups		= $tables['groups'];
 			$this->users		= $tables['users']; 
+			$this->login_attempts = $tables['login_attempts'];
 			// join names                          
 			$this->groups_join	= $joins['groups'];
 			$this->users_join	= $joins['users'];
@@ -69,7 +72,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			
 			$this->dbforge->add_field(array(
 				'id' => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE, 'auto_increment' => TRUE),
-				'ip_address' => array('type' => 'CHAR', 'constraint' => '16', 'null' => FALSE),
+				'ip_address' => array('type' => 'VARBINARY', 'constraint' => '16', 'null' => FALSE),
 				'username' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => FALSE),
 				'password' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => FALSE),
 				'salt' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => TRUE),
@@ -91,7 +94,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			
 			// default data
 			$data = array(
-				'ip_address'=>'127.0.0.1',
+				'ip_address'=> inet_pton('127.0.0.1'),
 				'username'=>'administrator',
 				'password'=>'59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4',
 				'salt'=>'9462e8eee0',
@@ -139,7 +142,22 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			// Insert data
 			$this->db->insert_batch("{$this->users}_{$this->groups}", $data);
 		}
-		
+		if (!$this->db->table_exists($this->login_attempts)) 
+		{
+			// Setup Keys
+			$this->dbforge->add_key('id', TRUE);
+			$this->dbforge->add_key('ip_address');
+			$this->dbforge->add_key('login');
+			
+			$this->dbforge->add_field(array(
+				'id' => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE, 'auto_increment' => TRUE),
+				'ip_address' => array('type' => 'VARBINARY', 'constraint' => '16', 'null' => FALSE),
+				'login' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => FALSE),
+				'time' => array('type' => 'int', 'constraint' => '11', 'unsigned' => TRUE, 'null' => FALSE)
+			));
+			// create table
+			$this->dbforge->create_table($this->login_attempts, TRUE);
+		}
 	}
 
 	function down() 
@@ -150,5 +168,6 @@ class Migration_Create_ion_auth extends	CI_Migration {
 		$this->dbforge->drop_table($this->groups);
 		$this->dbforge->drop_table($this->users);
 		$this->dbforge->drop_table("{$this->users}_{$this->groups}");
+		$this->dbforge->drop_table($this->login_attempts);
 	}
 }
