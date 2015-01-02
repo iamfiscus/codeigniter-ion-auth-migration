@@ -28,15 +28,19 @@ correct variables from the Ion Auth config file.
 -OR-
 You could set them manually if you'd like instead of pulling them in from the config file.
 Example:
+```php
 // Tables
 private $groups	= 'access';
 private $meta = 'profile';
 private $users = 'auth';
+```
 
 You can also change the join names to correspond with you custom tables:
+```php
 // Join names
 private $groups_join = 'access_id';
 private $users_join	= 'auth_id';
+```
 
 Thanks,
 -Jd Fiscus
