@@ -73,10 +73,10 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			$this->dbforge->add_field(array(
 				'id' => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE, 'auto_increment' => TRUE),
 				'ip_address' => array('type' => 'VARBINARY', 'constraint' => '16', 'null' => FALSE),
-				'username' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => FALSE),
+				'username' => array('type' => 'VARCHAR','unique'=> TRUE, 'constraint' => '100', 'null' => FALSE),
 				'password' => array('type' => 'VARCHAR', 'constraint' => '80', 'null' => FALSE),
 				'salt' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => TRUE),
-				'email' => array('type' => 'VARCHAR', 'constraint' => '100', 'null' => FALSE),
+				'email' => array('type' => 'VARCHAR','unique' => TRUE, 'constraint' => '100', 'null' => FALSE),
 				'activation_code' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => TRUE),
 				'forgotten_password_code' => array('type' => 'VARCHAR', 'constraint' => '40', 'null' => TRUE),
 				'forgotten_password_time' => array('type' => 'int', 'constraint' => '11', 'unsigned' => TRUE, 'null' => TRUE),
