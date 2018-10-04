@@ -7,6 +7,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 	// Table names
 	private $groups			= 'groups';
 	private $users			= 'users';
+	private $users_groups		= 'users_groups';
 	private $login_attempts	= 'login_attempts';
 	
 	// Join names
@@ -27,6 +28,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 			// table names
 			$this->groups		= $tables['groups'];
 			$this->users		= $tables['users']; 
+			$this->users_groups	= $tables['users_groups'];
 			$this->login_attempts = $tables['login_attempts'];
 			// join names                          
 			$this->groups_join	= $joins['groups'];
@@ -114,7 +116,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 		}
 		
 		// users_groups 
-		if (!$this->db->table_exists("{$this->users}_{$this->groups}")) 
+		if (!$this->db->table_exists($this->users_groups)) 
 		{
 			// Setup keys
 			$this->dbforge->add_key('id', TRUE);
@@ -126,7 +128,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 				"$this->groups_join" => array('type' => 'MEDIUMINT', 'constraint' => 8, 'unsigned' => TRUE, 'null' => FALSE)
 			));
 			// create table
-			$this->dbforge->create_table("{$this->users}_{$this->groups}", TRUE);
+			$this->dbforge->create_table($this->users_groups, TRUE);
 			
 			// define default data
 			$data = array(
@@ -140,7 +142,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 				)
 			);
 			// Insert data
-			$this->db->insert_batch("{$this->users}_{$this->groups}", $data);
+			$this->db->insert_batch($this->users_groups, $data);
 		}
 		if (!$this->db->table_exists($this->login_attempts)) 
 		{
@@ -167,7 +169,7 @@ class Migration_Create_ion_auth extends	CI_Migration {
 		
 		$this->dbforge->drop_table($this->groups);
 		$this->dbforge->drop_table($this->users);
-		$this->dbforge->drop_table("{$this->users}_{$this->groups}");
+		$this->dbforge->drop_table($this->users_groups);
 		$this->dbforge->drop_table($this->login_attempts);
 	}
 }
